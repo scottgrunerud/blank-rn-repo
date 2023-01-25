@@ -19,6 +19,8 @@
 		331B345EFA588A479651372B /* libPods-blankRNproject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 858FDF2200F17105347AED03 /* libPods-blankRNproject.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B25636C202B0283A4F7B9042 /* libPods-blankRNproject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E7B9EF80975DA0EB13D38B /* libPods-blankRNproject-tvOS.a */; };
+		C933F6D42981B78600EAE971 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933F6D32981B78600EAE971 /* Counter.swift */; };
+		C933F6D62981B87500EAE971 /* Counter.m in Sources */ = {isa = PBXBuildFile; fileRef = C933F6D52981B87500EAE971 /* Counter.m */; };
 		F55FCD9AD66020D9A1797954 /* libPods-blankRNproject-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 382B15DD4621B5ABF71FA88B /* libPods-blankRNproject-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,9 @@
 		858FDF2200F17105347AED03 /* libPods-blankRNproject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-blankRNproject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A102A95AFC96C4A6CD6819 /* Pods-blankRNproject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blankRNproject.debug.xcconfig"; path = "Target Support Files/Pods-blankRNproject/Pods-blankRNproject.debug.xcconfig"; sourceTree = "<group>"; };
 		C1D9B1C9636A4DA4981E4C55 /* Pods-blankRNproject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blankRNproject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-blankRNproject-tvOS/Pods-blankRNproject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C933F6D22981B78500EAE971 /* blankRNproject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "blankRNproject-Bridging-Header.h"; sourceTree = "<group>"; };
+		C933F6D32981B78600EAE971 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		C933F6D52981B87500EAE971 /* Counter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Counter.m; sourceTree = "<group>"; };
 		D92A77C938EC6785535B9B35 /* Pods-blankRNproject-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blankRNproject-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-blankRNproject-tvOSTests/Pods-blankRNproject-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB3782BA3B219A4A5B9AEC63 /* libPods-blankRNproject-blankRNprojectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-blankRNproject-blankRNprojectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E7B9EF80975DA0EB13D38B /* libPods-blankRNproject-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-blankRNproject-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,7 +166,6 @@
 				ED391B44B475B0A275A36F4E /* Pods-blankRNproject-tvOSTests.debug.xcconfig */,
 				D92A77C938EC6785535B9B35 /* Pods-blankRNproject-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,12 +179,15 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C933F6D32981B78600EAE971 /* Counter.swift */,
+				C933F6D52981B87500EAE971 /* Counter.m */,
 				13B07FAE1A68108700A75B9A /* blankRNproject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* blankRNprojectTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				628AF5765E57BDE7C9987B5F /* Pods */,
+				C933F6D22981B78500EAE971 /* blankRNproject-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -294,7 +301,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1330;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -568,8 +575,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C933F6D62981B87500EAE971 /* Counter.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				C933F6D42981B78600EAE971 /* Counter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +619,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 707D505C3EDE8EE5C6E218F2 /* Pods-blankRNproject-blankRNprojectTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -633,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F9D2195E151102E6C656BC04 /* Pods-blankRNproject-blankRNprojectTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = blankRNprojectTests/Info.plist;
@@ -666,6 +677,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = blankRNproject;
+				SWIFT_OBJC_BRIDGING_HEADER = "blankRNproject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -688,6 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = blankRNproject;
+				SWIFT_OBJC_BRIDGING_HEADER = "blankRNproject-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

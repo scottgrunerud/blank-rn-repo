@@ -1,114 +1,88 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {useState} from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// Imports the NativeModulues bridge which lets us hook into native methods & classes
+import {NativeModules} from 'react-native';
 
 const App = () => {
+  const initialNativeCount = NativeModules.Counter.getConstants().count;
+
+  // Initializes our counter with the value held in the native code's state
+  const [reactCount, setReactCount] = useState(initialNativeCount);
+  const [reactError, setReactError] = useState(null);
+
+  // An example of a async native method be invoked in JS
+  const decreaseAsync = () =>
+    NativeModules.Counter.decrement()
+      .then((nativeValue) => setReactCount(nativeValue))
+      .catch((nativeError) => setReactError(nativeError.message));
+
+  //An example of a synchronous native method being invoked in JS
+  const increase = () => {
+    setReactError(false);
+    NativeModules.Counter.increment((nativeValue) =>
+      setReactCount(nativeValue),
+    );
+  };
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <View style={styles.container}>
+      {/* Count Value */}
+      <Text style={styles.counter}>{reactCount}</Text>
+
+      {/* Button Container */}
+      <View style={styles.buttonContainer}>
+        <Pressable
+          style={{...styles.button, marginRight: 16}}
+          onPress={decreaseAsync}>
+          <Text style={styles.text}>Dec</Text>
+        </Pressable>
+
+        <Pressable style={styles.button} onPress={increase}>
+          <Text style={styles.text}>Inc</Text>
+        </Pressable>
+      </View>
+
+      {reactError && <Text style={styles.error}>{reactError}</Text>}
+    </View>
   );
 };
 
+export default App;
+
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  counter: {
+    fontSize: 32,
+    fontWeight: '800',
+    marginBottom: 16,
   },
-  body: {
-    backgroundColor: Colors.white,
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'blue',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  error: {
+    marginTop: 16,
+    color: 'red',
   },
 });
-
-export default App;
