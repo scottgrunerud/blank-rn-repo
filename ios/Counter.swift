@@ -10,7 +10,7 @@ import Foundation
 
 // The @objc(Counter) decorater exposes our "Counter" class to the Objective-C runtime
 @objc(Counter)
-class Counter: NSObject {
+class Counter: RCTEventEmitter {
   
   private var count = 0;
   
@@ -20,17 +20,23 @@ class Counter: NSObject {
   func increment(_ callback:RCTResponseSenderBlock){
     count += 1;
     callback([count])
+    sendEvent(withName: "onIncrement", body: ["count": count])
   }
   
   
+//  When using event emitters we are forced to override this function
   @objc
-  func constantsToExport()->[String: Any]! {
+ override func constantsToExport()->[AnyHashable: Any]! {
     return ["count": count];
+  }
+  
+//  We need to register which events are supported, they should match the value of the "withName" parameter defined in the sendEvent() method
+  override func supportedEvents() -> [String]! {
+    return ["onIncrement", "onDecrement"]
   }
   
   
 //  Async Function
-  
   @objc
   func decrement(_ resolve:RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     if(count == 0){
@@ -39,6 +45,7 @@ class Counter: NSObject {
     } else {
       count -= 1;
       resolve([count])
+      sendEvent(withName: "onDecrement", body: ["count": count])
     }
   }
   
@@ -46,7 +53,7 @@ class Counter: NSObject {
 //  Important method essentially React Native that we want our native modulues to be
 //  initalized on the main thread before any JS is executed - we want this to be true because it is needed for UI stuff
   @objc
-  static func requiresMainQueueSetup()-> Bool {
+  override static func requiresMainQueueSetup()-> Bool {
     return true
   }
   

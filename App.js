@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-// Imports the NativeModulues bridge which lets us hook into native methods & classes
-import {NativeModules} from 'react-native';
+// Imports the NativeModules bridge which lets us hook into native methods & classes
+import {NativeModules, NativeEventEmitter} from 'react-native';
+
+// Hooks into our native event emitter
+const CounterEvents = new NativeEventEmitter(NativeModules.Counter);
 
 const App = () => {
   const initialNativeCount = NativeModules.Counter.getConstants().count;
@@ -24,6 +27,21 @@ const App = () => {
       setReactCount(nativeValue),
     );
   };
+
+  // Sets up event listeners
+  useEffect(() => {
+    CounterEvents.addListener('onIncrement', (nativeResult) =>
+      console.log(`Received increment event ${nativeResult.count}`),
+    );
+
+    CounterEvents.addListener('onDecrement', (nativeResult) =>
+      console.log(`Received decrement event ${nativeResult.count}`),
+    );
+
+    return () => {
+      CounterEvents.removeAllListeners();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
